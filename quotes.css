@@ -1,0 +1,31 @@
+body {
+    font-family: "Century Gothic", Arial, sans-serif;
+    font-size: 20px;
+    line-height: 30px;
+    margin: 0 25%;
+    text-align: center;
+    background-color: rgb(178, 198, 161);
+}
+
+form {
+    display: inline-block;
+    padding: 30px;
+    background-color: rgb(98, 120, 87);
+}
+
+#result-div {
+    margin-top: 20px;
+}
+
+#random-quote {
+    font-size: 25px;
+}
+
+#author {
+    font-style: italic;
+    font-size: 15px;
+}
+
+#err {
+    color: red;
+}

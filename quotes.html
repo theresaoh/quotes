@@ -1,43 +1,50 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <link rel="stylesheet" href="quotes.css">
+</head>
 <body>
-    <form id='login-form'>
-        <table>
-            <tr>
-                <td>Author</td>
-                <td><input type="text" name="username" /></td>
-            </tr>
-            <tr>
-                <td>Get Random Quote</td>
-                <td><input type="submit"/></td>
-            </tr>
-        </table>
+    <h2>Random Quote Generator</h2>
+    <p>Get a random quote.<br>If you'd like to get a random quote by a specific author, you can type part of the author's name in the field below.<br>Warning: We may not have a quote by that author.</p>
+    <form id='search-form'>
+        Author (optional)
+        <input type="text" name="username" /><br>
+        <input type="submit" value="Get Random Quote"/>
     </form>
-    <p id="random-quote"></p>
-    <p id="author"></p>
+    <div id= "result-div">
+        <p id="random-quote"></p>
+        <p id="author"></p>
+        <p id="err"></p>
+    </div>
 </body>
 </html>
 
 <script type="text/javascript">
 
-const loginForm = document.getElementById('login-form')
+const searchForm = document.getElementById('search-form')
 
 var getRandomInt = function(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
-loginForm.addEventListener('submit', evt => {
+searchForm.addEventListener('submit', evt => {
     evt.preventDefault();
-    const authorSearch = loginForm.querySelector('input[type="text"]').value;
+    const authorSearch = searchForm.querySelector('input[type="text"]').value;
     const quote = document.getElementById('random-quote');
     const author = document.getElementById('author');
+    const error = document.getElementById('error');
     fetch(`https://api.quotable.io/quotes?author=${authorSearch}`)
         .then(response => response.json())
         .then(data => {
-            numQuotes = data.results.length;
-            quote.innerHTML = data.results[getRandomInt(numQuotes)].content;
-            author.innerHTML = data.results[0].author;
+            let numQuotes = data.results.length;
+            let randomIndex = getRandomInt(numQuotes);
+            quote.innerHTML = data.results[randomIndex].content;
+            author.innerHTML = data.results[randomIndex].author;
         })
-        .catch(error => { quote.innerHTML = "Can't find a quote :("; } );
+        .catch(error => { 
+            err.innerHTML = "Sorry, we can't find a quote by an author with a name like that.";
+            quote.innerHTML = "";
+            author.innerHTML = ""; 
+            });
 });
 </script>
