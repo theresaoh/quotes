@@ -40,6 +40,7 @@ searchForm.addEventListener('submit', evt => {
             let randomIndex = getRandomInt(numQuotes);
             quote.innerHTML = data.results[randomIndex].content;
             author.innerHTML = data.results[randomIndex].author;
+            err.innerHTML = "";
         })
         .catch(error => { 
             err.innerHTML = "Sorry, we can't find a quote by an author with a name like that.";
